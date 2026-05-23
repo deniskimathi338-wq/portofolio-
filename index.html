@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Denis Kimathi Mwirigi — AI Data Specialist</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0D1B2A;
+    --ink: #1A2F45;
+    --blue: #1C5A8A;
+    --sky: #2E86C1;
+    --gold: #C9A84C;
+    --cream: #F5F0E8;
+    --paper: #FDFAF4;
+    --text: #2C2C2C;
+    --muted: #7A7A7A;
+    --border: rgba(28,90,138,0.15);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lora', Georgia, serif;
+    background: var(--paper);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 50%;
+    background: linear-gradient(135deg, #1A3A56 0%, #0D1B2A 60%);
+    border-left: 1px solid rgba(201,168,76,0.2);
+  }
+
+  /* Decorative circle */
+  .hero-circle {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.08);
+    top: 50%; left: 38%;
+    transform: translate(-50%, -50%);
+    animation: pulse-ring 6s ease-in-out infinite;
+  }
+  .hero-circle::before {
+    content: '';
+    position: absolute;
+    inset: 60px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.12);
+    animation: pulse-ring 6s ease-in-out infinite reverse;
+  }
+
+  @keyframes pulse-ring {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    50% { transform: translate(-50%, -50%) scale(1.04); opacity: 0.6; }
+  }
+
+  .hero-left {
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fade-up 0.8s 0.2s ease forwards;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 5.5vw, 72px);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--cream);
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fade-up 0.8s 0.4s ease forwards;
+  }
+
+  .hero-name em {
+    display: block;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--gold);
+    font-size: 0.55em;
+    letter-spacing: 1px;
+  }
+
+  .hero-tagline {
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.7);
+    margin: 32px 0 48px;
+    max-width: 420px;
+    opacity: 0;
+    animation: fade-up 0.8s 0.6s ease forwards;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    opacity: 0;
+    animation: fade-up 0.8s 0.8s ease forwards;
+  }
+
+  .badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    padding: 7px 16px;
+    border: 1px solid rgba(201,168,76,0.35);
+    color: var(--gold);
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .badge:hover { background: rgba(201,168,76,0.1); }
+
+  .hero-right {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px;
+    gap: 28px;
+  }
+
+  .stat-card {
+    opacity: 0;
+    animation: fade-left 0.7s ease forwards;
+  }
+  .stat-card:nth-child(1) { animation-delay: 0.5s; }
+  .stat-card:nth-child(2) { animation-delay: 0.7s; }
+  .stat-card:nth-child(3) { animation-delay: 0.9s; }
+
+  .stat-card-inner {
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 28px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .stat-card-inner::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--gold);
+  }
+  .stat-card-inner:hover { border-color: rgba(201,168,76,0.4); }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: rgba(245,240,232,0.5);
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .stat-desc {
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    color: rgba(245,240,232,0.65);
+    margin-top: 10px;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* ── NAV DOT ── */
+  .scroll-hint {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  .scroll-hint span {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: rgba(201,168,76,0.5);
+    text-transform: uppercase;
+  }
+  .scroll-hint::after {
+    content: '';
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, rgba(201,168,76,0.5), transparent);
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade-left {
+    from { opacity: 0; transform: translateX(24px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 0; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--sky);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 60px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--sky);
+  }
+
+  /* ── ABOUT ── */
+  .about-section { background: var(--paper); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 17px;
+    line-height: 1.85;
+    color: #444;
+    margin-bottom: 20px;
+  }
+
+  .about-text p strong {
+    color: var(--blue);
+    font-weight: 600;
+  }
+
+  .about-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .detail-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .detail-row:first-child { padding-top: 0; }
+
+  .detail-icon {
+    width: 42px; height: 42px;
+    background: var(--navy);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+
+  .detail-content h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .detail-content p {
+    font-size: 15px;
+    color: var(--text);
+    font-family: 'Lora', serif;
+  }
+
+  /* ── SKILLS ── */
+  .skills-section { background: var(--navy); }
+  .skills-section .section-label { color: var(--gold); }
+  .skills-section .section-title { color: var(--cream); }
+  .skills-section .section-title em { color: var(--gold); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.1);
+  }
+
+  .skill-block {
+    background: var(--navy);
+    padding: 36px 32px;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-block::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .skill-block:hover { background: #142434; }
+  .skill-block:hover::after { transform: scaleX(1); }
+
+  .skill-emoji { font-size: 26px; margin-bottom: 16px; }
+
+  .skill-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 10px;
+  }
+
+  .skill-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .skill-items li {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: rgba(245,240,232,0.55);
+    letter-spacing: 0.5px;
+    padding-left: 14px;
+    position: relative;
+  }
+  .skill-items li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 10px;
+  }
+
+  /* ── LANGUAGES ── */
+  .lang-section { background: var(--cream); }
+
+  .lang-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .lang-card {
+    border: 1px solid var(--border);
+    padding: 48px 40px;
+    background: white;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .lang-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(13,27,42,0.1);
+  }
+
+  .lang-flag {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+
+  .lang-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .lang-level {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--sky);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .lang-bar {
+    height: 4px;
+    background: rgba(28,90,138,0.1);
+    border-radius: 2px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .lang-bar-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--blue), var(--sky));
+    border-radius: 2px;
+    animation: bar-grow 1.4s 0.5s cubic-bezier(0.4,0,0.2,1) both;
+  }
+  @keyframes bar-grow {
+    from { width: 0; }
+  }
+
+  .lang-desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .lang-card.primary {
+    background: var(--navy);
+  }
+  .lang-card.primary .lang-name { color: var(--cream); }
+  .lang-card.primary .lang-desc { color: rgba(245,240,232,0.6); }
+  .lang-card.primary .lang-bar { background: rgba(201,168,76,0.15); }
+  .lang-card.primary .lang-bar-fill { background: linear-gradient(to right, var(--gold), #E8C060); }
+
+  /* ── EDUCATION ── */
+  .edu-section { background: var(--paper); }
+
+  .edu-card {
+    border-left: 3px solid var(--sky);
+    padding: 0 0 0 40px;
+    margin-bottom: 56px;
+    position: relative;
+  }
+  .edu-card::before {
+    content: '';
+    position: absolute;
+    left: -7px; top: 4px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--sky);
+    border: 3px solid var(--paper);
+  }
+
+  .edu-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--sky);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .edu-degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .edu-institution {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+  .edu-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .edu-points li {
+    font-size: 15px;
+    color: #555;
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .edu-points li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--sky);
+    font-size: 12px;
+    top: 2px;
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-section { background: #F0EDE6; }
+
+  .exp-block {
+    background: white;
+    padding: 48px;
+    border: 1px solid var(--border);
+    position: relative;
+    margin-bottom: 28px;
+  }
+  .exp-block::before {
+    content: attr(data-num);
+    position: absolute;
+    top: -20px;
+    right: 40px;
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    font-weight: 900;
+    color: rgba(28,90,138,0.06);
+    line-height: 1;
+  }
+
+  .exp-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .exp-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--sky);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .exp-points {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .exp-points li {
+    font-size: 14px;
+    color: #555;
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .exp-points li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--sky);
+    font-size: 11px;
+    top: 2px;
+  }
+
+  /* ── RWS SECTION ── */
+  .rws-section {
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+  }
+  .rws-section::before {
+    content: 'RWS';
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 280px;
+    font-weight: 900;
+    color: rgba(201,168,76,0.04);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .rws-section .section-label { color: var(--gold); }
+  .rws-section .section-title { color: var(--cream); }
+
+  .rws-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: rgba(201,168,76,0.08);
+  }
+
+  .rws-item {
+    background: var(--navy);
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .rws-item:hover { background: #142434; }
+
+  .rws-item-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: rgba(201,168,76,0.2);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .rws-item-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .rws-item-text {
+    font-size: 14px;
+    color: rgba(245,240,232,0.6);
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: var(--cream);
+    text-align: center;
+  }
+
+  .contact-section .section-title { margin-bottom: 16px; }
+
+  .contact-sub {
+    font-size: 17px;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 56px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-grid {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 56px;
+  }
+
+  .contact-chip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 28px;
+    background: white;
+    border: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--ink);
+    text-decoration: none;
+    transition: all 0.3s;
+    letter-spacing: 0.5px;
+  }
+  .contact-chip:hover {
+    background: var(--navy);
+    color: var(--gold);
+    border-color: var(--navy);
+  }
+  .contact-chip span { font-size: 18px; }
+
+  .cta-btn {
+    display: inline-block;
+    padding: 18px 56px;
+    background: var(--navy);
+    color: var(--gold);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--gold);
+    transition: all 0.3s;
+  }
+  .cta-btn:hover {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    padding: 28px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: rgba(245,240,232,0.3);
+    letter-spacing: 1px;
+  }
+
+  /* ── STICKY NAV ── */
+  .sticky-nav {
+    position: fixed;
+    top: 28px;
+    right: 36px;
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .nav-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+  }
+  .nav-dot.active { background: var(--gold); transform: scale(1.5); }
+  .nav-dot:hover::after {
+    content: attr(data-label);
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    white-space: nowrap;
+    background: var(--navy);
+    padding: 4px 10px;
+    border: 1px solid rgba(201,168,76,0.2);
+  }
+
+  /* ── REVEAL ANIMATION ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero::after { display: none; }
+    .hero-right { display: none; }
+    .hero-left { padding: 60px 32px; }
+    .about-grid, .lang-grid, .rws-grid, .exp-points { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .container { padding: 0 24px; }
+    section { padding: 70px 0; }
+    .exp-block { padding: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav" aria-label="Section navigation">
+  <div class="nav-dot active" data-section="hero" data-label="HOME" onclick="scrollTo('#hero')"></div>
+  <div class="nav-dot" data-section="about" data-label="ABOUT" onclick="scrollTo('#about')"></div>
+  <div class="nav-dot" data-section="skills" data-label="SKILLS" onclick="scrollTo('#skills')"></div>
+  <div class="nav-dot" data-section="languages" data-label="LANGUAGES" onclick="scrollTo('#languages')"></div>
+  <div class="nav-dot" data-section="education" data-label="EDUCATION" onclick="scrollTo('#education')"></div>
+  <div class="nav-dot" data-section="experience" data-label="EXPERIENCE" onclick="scrollTo('#experience')"></div>
+  <div class="nav-dot" data-section="rws" data-label="WHY RWS" onclick="scrollTo('#rws')"></div>
+  <div class="nav-dot" data-section="contact" data-label="CONTACT" onclick="scrollTo('#contact')"></div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="hero">
+  <div class="hero-circle"></div>
+
+  <div class="hero-left">
+    <p class="hero-eyebrow">AI Data Specialist &nbsp;·&nbsp; Nairobi, Kenya</p>
+    <h1 class="hero-name">
+      Denis Kimathi
+      <em>Mwirigi</em>
+    </h1>
+    <p class="hero-tagline">
+      Bilingual data annotator and language specialist delivering precision, consistency, and cultural depth to AI training pipelines — in Swahili and English.
+    </p>
+    <div class="hero-badges">
+      <span class="badge">Native Swahili</span>
+      <span class="badge">Data Annotation</span>
+      <span class="badge">AI/ML Datasets</span>
+      <span class="badge">Remote Ready</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="stat-card">
+      <div class="stat-card-inner">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Languages at Professional Level</div>
+        <div class="stat-desc">Swahili (native) & English (professional) — a rare bilingual pair for East African AI data</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-inner">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Hours/week — Available Now</div>
+        <div class="stat-desc">Part-time, remote, immediately available for annotation, evaluation, and review tasks</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-inner">
+        <div class="stat-num">BSc</div>
+        <div class="stat-label">Polymer Chemistry — DeKUT</div>
+        <div class="stat-desc">Scientific rigour, structured documentation, and analytical precision applied to every data task</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about-section">
+  <div class="container">
+    <p class="section-label reveal">Profile</p>
+    <h2 class="section-title reveal">Who I <em>Am</em></h2>
+
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I am a <strong>detail-obsessed data professional</strong> and final-year BSc student at Dedan Kimathi University of Technology, where polymer chemistry has trained me to think systematically, document meticulously, and trust only what can be verified.</p>
+        <p>In the AI data world, that translates directly: I bring the same rigour I apply to laboratory records to every annotation task, quality rating, and content evaluation I undertake.</p>
+        <p>My <strong>native Swahili</strong> combined with <strong>professional English</strong> gives me a rare ability to operate with genuine fluency across two languages — understanding nuance, cultural context, and register shifts that non-native speakers miss.</p>
+        <p>I thrive in high-volume, guideline-driven remote work environments, and I have a proven track record of maintaining accuracy and consistency under repetitive, deadline-sensitive conditions.</p>
+      </div>
+
+      <div class="about-details reveal">
+        <div class="detail-row">
+          <div class="detail-icon">📍</div>
+          <div class="detail-content">
+            <h4>Location</h4>
+            <p>Nairobi, Kenya (Remote Worker)</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-icon">📧</div>
+          <div class="detail-content">
+            <h4>Email</h4>
+            <p>Deniskimathi338@gmail.com</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-icon">📱</div>
+          <div class="detail-content">
+            <h4>Phone / WhatsApp</h4>
+            <p>+254 708 848 493</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-icon">🎓</div>
+          <div class="detail-content">
+            <h4>Education</h4>
+            <p>BSc Polymer Chemistry — DeKUT (In Progress)</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-icon">⏱️</div>
+          <div class="detail-content">
+            <h4>Availability</h4>
+            <p>Part-time · 10+ hrs/week · Immediate start</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-icon">🌐</div>
+          <div class="detail-content">
+            <h4>Work Type</h4>
+            <p>100% Remote · Freelance / Contract</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-section">
+  <div class="container">
+    <p class="section-label reveal">Capabilities</p>
+    <h2 class="section-title reveal">Core <em>Skills</em></h2>
+
+    <div class="skills-grid reveal">
+      <div class="skill-block">
+        <div class="skill-emoji">🏷️</div>
+        <div class="skill-name">Data Annotation</div>
+        <ul class="skill-items">
+          <li>Text labelling & tagging</li>
+          <li>NLP dataset creation</li>
+          <li>Sentiment & intent classification</li>
+          <li>Entity recognition tasks</li>
+        </ul>
+      </div>
+      <div class="skill-block">
+        <div class="skill-emoji">🔍</div>
+        <div class="skill-name">Content Evaluation</div>
+        <ul class="skill-items">
+          <li>AI output quality rating</li>
+          <li>Relevance & fluency scoring</li>
+          <li>Safety & policy review</li>
+          <li>Sensitive content moderation</li>
+        </ul>
+      </div>
+      <div class="skill-block">
+        <div class="skill-emoji">🌐</div>
+        <div class="skill-name">Internet Research</div>
+        <ul class="skill-items">
+          <li>Structured web research</li>
+          <li>Fact-checking & verification</li>
+          <li>Source credibility assessment</li>
+          <li>Data compilation in templates</li>
+        </ul>
+      </div>
+      <div class="skill-block">
+        <div class="skill-emoji">🤖</div>
+        <div class="skill-name">AI Tool Proficiency</div>
+        <ul class="skill-items">
+          <li>ChatGPT & LLM platforms</li>
+          <li>Annotation tool interfaces</li>
+          <li>Prompt evaluation</li>
+          <li>AI pipeline understanding</li>
+        </ul>
+      </div>
+      <div class="skill-block">
+        <div class="skill-emoji">📊</div>
+        <div class="skill-name">Digital Productivity</div>
+        <ul class="skill-items">
+          <li>Microsoft Word & Excel</li>
+          <li>Google Docs & Sheets</li>
+          <li>Fast, accurate typing</li>
+          <li>Template & form completion</li>
+        </ul>
+      </div>
+      <div class="skill-block">
+        <div class="skill-emoji">🎯</div>
+        <div class="skill-name">Work Qualities</div>
+        <ul class="skill-items">
+          <li>Strict guideline adherence</li>
+          <li>High-volume consistency</li>
+          <li>Remote self-management</li>
+          <li>Deadline reliability</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LANGUAGES -->
+<section id="languages" class="lang-section">
+  <div class="container">
+    <p class="section-label reveal">Linguistic Profile</p>
+    <h2 class="section-title reveal">Language <em>Fluency</em></h2>
+
+    <div class="lang-grid">
+      <div class="lang-card primary reveal">
+        <div class="lang-flag">🇰🇪</div>
+        <div class="lang-name">Swahili</div>
+        <div class="lang-level">Native · Mother Tongue</div>
+        <div class="lang-bar"><div class="lang-bar-fill" style="width:100%"></div></div>
+        <p class="lang-desc">Full native command including regional variation, formal register, colloquial expression, and cultural nuance. Capable of evaluating text for authenticity, naturalness, and appropriateness that non-native speakers cannot reliably assess.</p>
+      </div>
+      <div class="lang-card reveal">
+        <div class="lang-flag">🇬🇧</div>
+        <div class="lang-name">English</div>
+        <div class="lang-level">Professional Working Proficiency</div>
+        <div class="lang-bar"><div class="lang-bar-fill" style="width:92%"></div></div>
+        <p class="lang-desc">Full professional reading, writing, and comprehension. Academic-level writing ability demonstrated through university coursework. Capable of producing and evaluating content to publication standard in English.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="edu-section">
+  <div class="container">
+    <p class="section-label reveal">Academic Background</p>
+    <h2 class="section-title reveal">Education &amp; <em>Training</em></h2>
+
+    <div class="reveal">
+      <div class="edu-card">
+        <div class="edu-year">2021 — Present</div>
+        <div class="edu-degree">Bachelor of Science — Polymer Chemistry</div>
+        <div class="edu-institution">Dedan Kimathi University of Technology (DeKUT), Nyeri, Kenya</div>
+        <ul class="edu-points">
+          <li>Developed rigorous analytical thinking and systematic data interpretation through laboratory-intensive coursework</li>
+          <li>Trained in precise experimental documentation — directly transferable to annotation guideline adherence</li>
+          <li>Applied statistical analysis and structured data recording to research projects</li>
+          <li>Demonstrated ability to follow complex multi-step protocols accurately and consistently</li>
+        </ul>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-year">Ongoing</div>
+        <div class="edu-degree">Self-Directed AI &amp; Data Skills Development</div>
+        <div class="edu-institution">Online platforms, AI tools, freelance digital work</div>
+        <ul class="edu-points">
+          <li>Hands-on experience with AI language model platforms including ChatGPT and similar tools</li>
+          <li>Practical familiarity with data annotation interfaces and digital task platforms</li>
+          <li>Continuous development of content evaluation and quality-rating competencies</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="exp-section">
+  <div class="container">
+    <p class="section-label reveal">Work History</p>
+    <h2 class="section-title reveal">Relevant <em>Experience</em></h2>
+
+    <div class="exp-block reveal" data-num="01">
+      <div class="exp-role">Freelance AI &amp; Digital Data Worker</div>
+      <div class="exp-meta">Remote · Freelance · Ongoing</div>
+      <ul class="exp-points">
+        <li>Completed data annotation and labelling tasks applying detailed rubrics with high accuracy</li>
+        <li>Evaluated AI-generated outputs for fluency, relevance, safety, and factual correctness</li>
+        <li>Conducted structured internet research and compiled information in required formats</li>
+        <li>Reviewed large volumes of content — including sensitive material — professionally</li>
+        <li>Leveraged AI tools (ChatGPT) for task research, showing LLM workflow familiarity</li>
+        <li>Managed concurrent remote tasks, meeting all deadlines independently</li>
+      </ul>
+    </div>
+
+    <div class="exp-block reveal" data-num="02">
+      <div class="exp-role">University Research &amp; Data Tasks</div>
+      <div class="exp-meta">Dedan Kimathi University of Technology · Academic</div>
+      <ul class="exp-points">
+        <li>Recorded and maintained precise laboratory data logs across multi-week experiments</li>
+        <li>Analysed structured and unstructured datasets using statistical methods</li>
+        <li>Produced accurate written reports in both technical and plain-language English</li>
+        <li>Followed detailed experimental protocols without deviation — critical skill for AI annotation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WHY RWS -->
+<section id="rws" class="rws-section">
+  <div class="container">
+    <p class="section-label reveal">Value Proposition</p>
+    <h2 class="section-title reveal">Why I Am the <em>Right Fit</em> for RWS</h2>
+
+    <div class="rws-grid reveal">
+      <div class="rws-item">
+        <div class="rws-item-num">01</div>
+        <div class="rws-item-title">Rare Language-Pair Coverage</div>
+        <p class="rws-item-text">Native Swahili + professional English is a combination most candidates cannot offer. East African language data is in high demand for AI training, and I can evaluate authenticity and naturalness that non-native speakers miss entirely.</p>
+      </div>
+      <div class="rws-item">
+        <div class="rws-item-num">02</div>
+        <div class="rws-item-title">Scientific Precision Mindset</div>
+        <p class="rws-item-text">A chemistry degree is not unrelated — it means I follow complex multi-step instructions exactly, I document carefully, and I do not guess when precision is required. I bring lab-grade accuracy to every annotation task.</p>
+      </div>
+      <div class="rws-item">
+        <div class="rws-item-num">03</div>
+        <div class="rws-item-title">Sensitive Content Readiness</div>
+        <p class="rws-item-text">I am explicitly comfortable reviewing potentially offensive, disturbing, or sensitive content while maintaining professional focus. I understand this is a core part of AI safety and content moderation work, not an edge case.</p>
+      </div>
+      <div class="rws-item">
+        <div class="rws-item-num">04</div>
+        <div class="rws-item-title">Immediately Available, Remote-Proven</div>
+        <p class="rws-item-text">I can start now, with a stable remote setup, 10+ hours per week of dedicated availability, and a track record of managing my own workflow independently — no onboarding delay, no infrastructure issues.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="container">
+    <p class="section-label reveal">Get In Touch</p>
+    <h2 class="section-title reveal">Let's <em>Work</em> Together</h2>
+    <p class="contact-sub reveal">Open to annotation projects, quality evaluation tasks, and AI dataset work — remote, part-time, immediate start.</p>
+
+    <div class="contact-grid reveal">
+      <a href="mailto:Deniskimathi338@gmail.com" class="contact-chip">
+        <span>✉️</span> Deniskimathi338@gmail.com
+      </a>
+      <a href="tel:+254708848493" class="contact-chip">
+        <span>📱</span> +254 708 848 493
+      </a>
+      <div class="contact-chip">
+        <span>📍</span> Nairobi, Kenya (Remote)
+      </div>
+    </div>
+
+    <div class="reveal">
+      <a href="mailto:Deniskimathi338@gmail.com?subject=RWS%20Project%20Opportunity%20for%20Denis%20Kimathi" class="cta-btn">
+        Send Me a Project &#8594;
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Denis Kimathi Mwirigi — AI Data Specialist</p>
+  <p>Nairobi, Kenya · Available for Remote Work</p>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav dots
+  const sections = document.querySelectorAll('section[id], section.hero');
+  const dots = document.querySelectorAll('.nav-dot');
+
+  function scrollTo(selector) {
+    const el = document.querySelector(selector);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 200) current = s.id;
+    });
+    dots.forEach(d => {
+      d.classList.toggle('active', d.dataset.section === current);
+    });
+  });
+</script>
+</body>
+</html>
